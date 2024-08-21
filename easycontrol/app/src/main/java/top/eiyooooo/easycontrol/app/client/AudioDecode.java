@@ -119,7 +119,7 @@ public class AudioDecode {
   // 创建AudioTrack
   private void setAudioTrack() {
     int sampleRate = 48000;
-    int bufferSize = AudioTrack.getMinBufferSize(sampleRate, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT) * 4;
+    int bufferSize = AudioTrack.getMinBufferSize(sampleRate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT) * 4;
     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
       AudioTrack.Builder audioTrackBuild = new AudioTrack.Builder();
       // 1
@@ -132,14 +132,14 @@ public class AudioDecode {
       AudioFormat.Builder audioFormat = new AudioFormat.Builder();
       audioFormat.setEncoding(AudioFormat.ENCODING_PCM_16BIT);
       audioFormat.setSampleRate(sampleRate);
-      audioFormat.setChannelMask(AudioFormat.CHANNEL_OUT_STEREO);
+      audioFormat.setChannelMask(AudioFormat.CHANNEL_OUT_MONO);
       // 3
       audioTrackBuild.setBufferSizeInBytes(bufferSize);
       audioTrackBuild.setAudioAttributes(audioAttributesBulider.build());
       audioTrackBuild.setAudioFormat(audioFormat.build());
       // 4
       audioTrack = audioTrackBuild.build();
-    } else audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, AudioFormat.CHANNEL_OUT_STEREO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
+    } else audioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT, bufferSize, AudioTrack.MODE_STREAM);
   }
 
   // 创建音频放大器
